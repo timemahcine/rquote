@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+	<style type="text/css">
+
+		body {
+			position: relative;
+		 	background-color: #FF6F98;
+		}
+		.container-fluid {
+			margin:100px 200px;
+		 	padding-bottom: 20px;
+			text-align: center;
+		 	color: #F1F8FF;
+		 	font-family: 'Comic Sans MS';
+		}
+
+		.well{
+			margin:0 auto;
+			width: 400px;
+			height:auto ;
+			min-height: 100px;
+			background: #FF9E9E;
+			border-radius: 20px;
+			padding: 20px;
+			margin-bottom: 20PX;
+		}
+
+
+		section {
+			font-size: 18px;
+			font-weight: 300;
+		}
+
+		.text-primary{
+			color: #F1F8FF;
+		}
+		.btn-primary{
+			background: #FF9E9E;
+			border-color: #FF9E9E;
+			outline: none;
+		}
+		.btn-primary:active{
+			color:#F1F8FF;
+  			background-color:#FF9E9E;
+  			border-color:#FF9E9E;
+  			outline: none;
+		}
+		.btn-primary:focus{
+			color:#F1F8FF;
+  			background-color:#FF9E9E!important;
+  			border-color:#FF9E9E!important;
+  			outline: none!important;
+		}
+		.btn-primary:hover{
+			background: #FD4579;
+			border-color: #FD4579;
+		}
+	</style>
+</head>
+<body>
+	<section class="container-fluid">
+		<h1 class='text-primary'>Random Quotes!</h1>
+		<div class="well">
+			
+	    		<p class="quote-text"></p>
+	    		<p class="author-text"></p>
+	    		<!-- <p>Made with Music by Timemahcine</p>
+	 -->
+  		</div>
+  		<p>Made with Music by Timemahcine</p>
+	
+  		<button type="button" class="btn btn-primary" id="quote">New Quote</button>
+ 		 <a class="weibo-share-button" href="#" data-size="large" target="_blank">
+    		<button type="button" class="btn btn-primary">Weibo it!</button>
+ 		 </a>
+	</section>
+
+	
+	<script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		var url = "http://api.forismatic.com/api/1.0/?method=getQuote&key=457653&format=jsonp&lang=en&jsonp=?";
+		var getQuote = function(data) {
+		  $(".quote-text").text(data.quoteText);
+		  var quot = 'http://v.t.sina.com.cn/share/share.php?title=' + data.quoteText + ' Author: ' + data.quoteAuthor;
+		  if (data.quoteAuthor === '') {
+		    data.quoteAuthor = 'Unknown';
+		  }
+		  $(".author-text").text('Author: ' + data.quoteAuthor);
+		  $(".weibo-share-button").attr("href", quot);
+		};
+		$(document).ready(function() {
+		  $.getJSON(url, getQuote, 'jsonp');
+		});
+		$("#quote").click(function() {
+		  $.getJSON(url, getQuote, 'jsonp');
+		});
+	</script>
+</body>
+</html>
